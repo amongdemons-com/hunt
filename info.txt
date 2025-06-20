@@ -1,0 +1,10 @@
+The formula for **at least one success**:
+
+$$
+P_{\text{success}} = 1 - (1 - p)^x
+$$
+
+Where:
+
+* $p$ = chance of success (e.g. 0.01 for 1%)
+* $x$ = number of actions
