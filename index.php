@@ -22,10 +22,6 @@ if (isset($_POST['user_id'])) {
         $_SESSION['xp'] = $xp;
         $_SESSION['hp'] = $hp;
         $_SESSION['attack'] = $attack;
-
-        //echo json_encode(['username' => $username, 'xp' => $xp, 'hp' => $hp, 'attack' => $attack]);
-    } else {
-        //echo json_encode(['username' => '', 'xp' => 0, 'hp' => 0, 'attack' => 0]);
     }
     $stmt->close();
     $mysqli->close();
@@ -41,10 +37,14 @@ if (isset($_POST['user_id'])) {
     <meta name="description" content="We converted the first demon models into Stargaze NFTs. Owning a piece makes you a supporter of the Among Demons project.">
     <meta name="author" content="Among Demons">
     <meta property="og:image" content="https://amongdemons.com/nfts/demons/faq/learnmore_founders_collection.png" />
+    <link rel="icon" href="/data/img/amongdemons.ico" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link href="data/main.css" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="data/main.js"></script>
   </head>
   <body class="d-flex flex-column h-100">    
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -113,33 +113,33 @@ if (isset($_POST['user_id'])) {
                     </div>
                 </div>
             </div>
-            <div class="p-2 w-100">
-                <h1 class="text-center">Among Demons Hunt</h1>
-                <p class="text-center">This is a placeholder for the game content. The game will be developed in the future.</p>
-                <div class="text-center">
-                    <img src="/data/img/amongdemons_logo_250x250.png" alt="Among Demons Logo" class="img-fluid">
+            <div class="py-2 ps-3 pe-2 w-100">
+                <h3 class="">Among Demons Hunt</h3>
+                <p class="">You can start the hunt by clicking the button below. This will simulate a hunt and update your resources.</p>
+                <div class="card flex-row" style="width: 50%;">
+                    <div style="height: 6rem; width: 6rem; overflow: hidden;" class="flex-shrink-1">
+                        <img src="/nfts/demons/models/1.png" class="card-img-top" style="width: 100%; height: 100%; object-fit: cover; object-position: top; transform: scale(2) translateY(-10%); transform-origin: top;" alt="...">
+                    </div>
+                    <div class="card-body d-flex flex-row align-items-center justify-content-between">
+                        <div>
+                            <h5 class="card-title fs-3 pe-3">
+                                <span class="ad-legendary">Legendary</span>
+                                Boof Nitza
+                            </h5>
+                            <div>
+                                <span class="badge bg-secondary">Level 1</span>
+                                <span class="badge bg-success">HP: 100</span>
+                                <span class="badge bg-warning text-dark">Attack: 10</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="start_hunt">Hunt</button>
+                    </div>
                 </div>
+
+
+                <div id="hunt_status"></div>
             </div>
         </div>
     </main>
-    <script>
-    function loadUserInfo(uid) {
-        if (!uid.match(/^\d+$/)) {
-            document.getElementById('username').textContent = '';
-            document.getElementById('xp').textContent = '0';
-            document.getElementById('hp').textContent = '0';
-            document.getElementById('attack').textContent = '0';
-            return;
-        }
-        fetch('?ajax_user=' + encodeURIComponent(uid))
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('username').textContent = data.username || '';
-                document.getElementById('xp').textContent = data.xp || 0;
-                document.getElementById('hp').textContent = data.hp || 0;
-                document.getElementById('attack').textContent = data.attack || 0;
-            });
-    }
-    </script>
   </body>
 </html>
