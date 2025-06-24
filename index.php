@@ -1,32 +1,3 @@
-<?php 
-session_start();
-include "data/config.php"; 
-
-// Set session user_id if posted
-if (isset($_POST['user_id'])) {
-    $_SESSION['user_id'] = $_POST['user_id'];
-
-    $uid = $_SESSION['user_id'];
-    $mysqli = new mysqli($hostname, $username, $password, $database);
-    if ($mysqli->connect_error) {
-        echo json_encode(['error' => 'db']);
-        exit;
-    }
-    $stmt = $mysqli->prepare("SELECT username, xp, hp, attack FROM users WHERE id = ?");
-    $stmt->bind_param("i", $uid);
-    $stmt->execute();
-    $stmt->bind_result($username, $xp, $hp, $attack);
-    if ($stmt->fetch()) {
-        // Save user info in session
-        $_SESSION['username'] = $username;
-        $_SESSION['xp'] = $xp;
-        $_SESSION['hp'] = $hp;
-        $_SESSION['attack'] = $attack;
-    }
-    $stmt->close();
-    $mysqli->close();
-}
-?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark" class="h-100">
   <head>
@@ -99,16 +70,16 @@ if (isset($_POST['user_id'])) {
                     </div>
                     <div class="p-2">
                         <h3>Level:</h3>
-                        <span id="xp"><?php echo isset($_SESSION['hp']) ? htmlspecialchars($_SESSION['hp']) : ''; ?></span> / <span id="xp_max">100</span>
+                        <span id="xp">-</span> / <span id="xp_max">100</span>
                     </div>
                     <div class="p-2">
                         <h3>Health:</h3>
-                        <span id="hp"><?php echo isset($_SESSION['hp']) ? htmlspecialchars($_SESSION['hp']) : ''; ?></span> / <span id="hp_max">100</span>
+                        <span id="hp">-</span> / <span id="hp_max">100</span>
                     </div>
                     <div class="p-2">
                         <h3>Attack:</h3>
                         <span id="attack">
-                            <?php echo isset($_SESSION['attack']) ? htmlspecialchars($_SESSION['attack']) : ''; ?>
+                            -
                         </span>
                     </div>
                 </div>

@@ -1,26 +1,12 @@
 jQuery(document).ready(function() {
     console.log("main.js: loaded");
 
+    const socket = new WebSocket('ws://86.125.214.215:3000');
+    socket.onopen = () => socket.send('Hello Server');
+    socket.onmessage = e => console.log('Server:', e.data);
+
     jQuery('#start_hunt').on('click', function() {
-        const uid = jQuery('#user_id').val();
-        if (!uid.match(/^\d+$/)) {
-            alert('Please enter a valid user ID.');
-            return;
-        }
-        jQuery('#hunt_status').text('Hunting...');
-        fetch('?ajax_hunt=' + encodeURIComponent(uid))
-            .then(r => r.json())
-            .then(data => {
-                if (data.success) {
-                    jQuery('#hunt_status').text('Hunt successful! XP gained: ' + data.xp);
-                } else {
-                    jQuery('#hunt_status').text('Hunt failed: ' + data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error during hunt:', error);
-                jQuery('#hunt_status').text('An error occurred during the hunt.');
-            });
+        console.log("#start_hunt: clicked");
     });
 });
 
